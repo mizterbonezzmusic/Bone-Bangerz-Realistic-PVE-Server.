@@ -1,0 +1,98 @@
+$schema: "https://raw.githubusercontent.com/tabarra/txAdmin-recipe-schemas/master/fxmanifest/recipe.yaml"
+
+name: "Bone Bangerz Realistic PVE Server – Mega All-In-One (condensed)"
+version: "1.0.0"
+author: "mizterbonezzmusic"
+description: "Installs oxmysql/ox_lib (releases), PolyZone, QBCore stack, Illenium, then pulls this repo's resources + cfg."
+
+tasks:
+  - action: remove_path
+    path: "tmp/"
+  - action: remove_path
+    path: "resources/[standalone]/oxmysql"
+  - action: remove_path
+    path: "resources/[standalone]/ox_lib"
+  - action: remove_path
+    path: "resources/[standalone]/PolyZone"
+  - action: remove_path
+    path: "resources/[standalone]/illenium-appearance"
+  - action: remove_path
+    path: "resources/[qb]/qb-core"
+  - action: remove_path
+    path: "resources/[qb]/qb-weapons"
+  - action: remove_path
+    path: "resources/[qb]/qb-target"
+  - action: remove_path
+    path: "resources/[qb]/qb-inventory"
+  - action: remove_path
+    path: "resources/[bonezz]"
+  - action: remove_path
+    path: "server.cfg"
+
+  # Deps via releases
+  - action: download_file
+    url: "https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip"
+    path: "tmp/oxmysql.zip"
+  - action: unzip
+    src: "tmp/oxmysql.zip"
+    dest: "resources/[standalone]/"
+  - action: remove_path
+    path: "tmp/oxmysql.zip"
+
+  - action: download_file
+    url: "https://github.com/overextended/ox_lib/releases/latest/download/ox_lib.zip"
+    path: "tmp/ox_lib.zip"
+  - action: unzip
+    src: "tmp/ox_lib.zip"
+    dest: "resources/[standalone]/"
+  - action: remove_path
+    path: "tmp/ox_lib.zip"
+
+  # PolyZone
+  - action: download_github
+    src: "mkafrin/PolyZone"
+    ref: "master"
+    dest: "resources/[standalone]/PolyZone"
+
+  # QBCore stack
+  - action: download_github
+    src: "qbcore-framework/qb-core"
+    ref: "main"
+    dest: "resources/[qb]/qb-core"
+
+  - action: download_github
+    src: "qbcore-framework/qb-weapons"
+    ref: "main"
+    dest: "resources/[qb]/qb-weapons"
+
+  - action: download_github
+    src: "qbcore-framework/qb-target"
+    ref: "main"
+    dest: "resources/[qb]/qb-target"
+
+  - action: download_github
+    src: "qbcore-framework/qb-inventory"
+    ref: "main"
+    dest: "resources/[qb]/qb-inventory"
+
+  # Illenium Appearance (pinned)
+  - action: download_file
+    url: "https://github.com/iLLeniumStudios/illenium-appearance/releases/download/v5.6.1/illenium-appearance.zip"
+    path: "tmp/illenium-appearance.zip"
+  - action: unzip
+    src: "tmp/illenium-appearance.zip"
+    dest: "resources/[standalone]/"
+  - action: remove_path
+    path: "tmp/illenium-appearance.zip"
+
+  # If hosting this repo on GitHub, uncomment and set your user/repo:
+  # - action: download_github
+  #   src: "mizterbonezzmusic/Bone_Bangerz_Realistic_PVE_Server"
+  #   ref: "main"
+  #   subpath: "resources"
+  #   dest: "resources"
+  # - action: download_github
+  #   src: "mizterbonezzmusic/Bone_Bangerz_Realistic_PVE_Server"
+  #   ref: "main"
+  #   subpath: "server.cfg"
+  #   dest: "server.cfg"
